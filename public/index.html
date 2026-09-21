@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>PluckTube — YouTube to MP3 & MP4</title>
+<meta name="description" content="PluckTube — paste a YouTube link, preview every quality with file sizes, and download as MP3 or MP4. Runs 100% on your machine." />
+<meta name="theme-color" content="#F3F1EA" />
+<meta property="og:title" content="PluckTube — YouTube to MP3 & MP4" />
+<meta property="og:description" content="Paste a link. See every quality with its exact disk size. Download — nothing stored, nothing uploaded." />
+<meta property="og:type" content="website" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css" />
+<link rel="icon" type="image/svg+xml" href="favicon.svg" />
+<link rel="alternate icon" href="favicon.ico" />
+<link rel="apple-touch-icon" href="apple-touch-icon.png" />
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap top-in">
+    <a class="wordmark" href="#"><img src="logo.svg" alt="PluckTube logo" width="26" height="26" />PluckTube<sup>®</sup></a>
+    <div class="top-right">
+      <span class="sys">yt-dlp + ffmpeg · local</span>
+      <span class="status" id="serverStatus"><i></i><em>checking</em></span>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <section class="hero">
+    <p class="eyebrow">Youtube → MP3 / MP4 · N°01</p>
+    <h1>Take the video.<br><em>Leave the tab.</em></h1>
+    <p class="lede">Paste a link. See every quality with its exact disk size. Download — nothing stored, nothing uploaded.</p>
+
+    <form id="fetchForm" class="bar" autocomplete="off">
+      <span class="bar-idx">↳</span>
+      <input id="urlInput" type="url" inputmode="url" placeholder="youtube.com/watch?v=…" spellcheck="false" />
+      <button type="button" class="tbtn" id="pasteBtn">Paste</button>
+      <button type="button" class="tbtn" id="clearBtn" aria-label="Clear">✕</button>
+      <button type="submit" class="fetch" id="fetchBtn"><span class="spin" hidden></span><span class="go-label">Fetch</span><span class="arr">→</span></button>
+    </form>
+    <div class="examples">
+      <span>Try:</span>
+      <button type="button" data-example="https://www.youtube.com/watch?v=aqz-KE-bpKQ">Big Buck Bunny 4K</button>
+      <button type="button" data-example="https://youtu.be/dQw4w9WgXcQ">Music video</button>
+      <button type="button" data-example="https://www.youtube.com/shorts/oyRxxg7w9_0">A Short</button>
+    </div>
+
+    <div id="alert" class="alert" hidden></div>
+  </section>
+
+  <section id="result" hidden>
+    <div class="rule-label">N°02 — File</div>
+    <div class="file">
+      <div class="file-media">
+        <img id="vThumb" alt="Video thumbnail" />
+        <span id="vDur" class="dur"></span>
+      </div>
+      <div class="file-meta">
+        <h2 id="vTitle"></h2>
+        <p class="byline"><span id="vChannel"></span> · <span id="vViews"></span> · <span id="vDate"></span> · <span id="vLikes"></span></p>
+        <p id="vDesc" class="desc"></p>
+        <div id="vTags" class="tags"></div>
+        <div class="file-actions">
+          <a id="thumbDl" class="tbtn" href="#" download="thumbnail.jpg" target="_blank" rel="noopener">Thumbnail ↓</a>
+          <button id="copyTitle" class="tbtn" type="button">Copy title</button>
+          <button id="copyLink" class="tbtn" type="button">Copy link</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="rule-label">N°03 — Download</div>
+    <div class="dl-rows">
+      <div class="dl-row">
+        <span class="dl-k">MP4</span>
+        <div class="dl-v" id="quickMp4"></div>
+      </div>
+      <div class="dl-row">
+        <span class="dl-k">MP3</span>
+        <div class="dl-v" id="quickMp3"></div>
+      </div>
+    </div>
+
+    <div class="rule-label">N°04 — All formats</div>
+    <div class="tabs">
+      <button class="tab active" data-tab="video" type="button">Video <sup id="countVideo"></sup></button>
+      <button class="tab" data-tab="audio" type="button">Audio <sup id="countAudio"></sup></button>
+      <button class="tab" data-tab="all" type="button">Everything <sup id="countAll"></sup></button>
+      <label class="hideunk"><input type="checkbox" id="hideUnknown" checked /> known size only</label>
+    </div>
+
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr>
+          <th>Quality</th><th>Cont.</th><th>FPS</th><th class="r">Size</th><th></th>
+        </tr></thead>
+        <tbody id="formatBody"></tbody>
+      </table>
+    </div>
+    <p class="fine">Sizes marked ~ are YouTube estimates. Merged MP4s include audio; silent rows are video-only. Final files may differ slightly.</p>
+  </section>
+
+  <section class="grid4">
+    <div class="rule-label full">N°05 — Why this one</div>
+    <div><b>01</b><h3>Every quality</h3><p>144p to 4K plus all audio bitrates, with container, codec and frame rate.</p></div>
+    <div><b>02</b><h3>Size first</h3><p>Exact or estimated megabytes per row, before you commit disk space.</p></div>
+    <div><b>03</b><h3>True MP3</h3><p>96–320 kbps extraction via ffmpeg, metadata embedded.</p></div>
+    <div><b>04</b><h3>Nothing kept</h3><p>Files stream straight to you. No accounts, no queue, no storage.</p></div>
+  </section>
+
+  <section id="history">
+    <div class="rule-label">N°06 — Recent <button id="clearHist" class="tbtn sm" type="button">Clear</button></div>
+    <div id="histList" class="hist"><span class="empty">Nothing yet.</span></div>
+  </section>
+
+  <section id="how" class="how">
+    <div class="rule-label">N°07 — Run it</div>
+    <ol>
+      <li><code>npm install && npm start</code> in the <code>youtube-downloader</code> folder.</li>
+      <li>Open <code>http://localhost:3123</code>, paste a link, hit Fetch.</li>
+      <li>Pick a row. The server streams it via <code>yt-dlp</code> — nothing is stored.</li>
+    </ol>
+    <p class="fine">Requires <code>yt-dlp</code> and <code>ffmpeg</code> on PATH. Personal / fair-use downloads only — respect creators.</p>
+  </section>
+
+  <footer>PluckTube — runs 100% on your machine.</footer>
+</main>
+
+<script src="app.js"></script>
+</body>
+</html>
