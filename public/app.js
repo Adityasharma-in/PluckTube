@@ -50,16 +50,6 @@ function qualityLabel(f) {
   return f.resolution || f.ext.toUpperCase();
 }
 
-async function checkHealth() {
-  const pill = $('#serverStatus');
-  try {
-    const r = await fetch('/api/health');
-    const j = await r.json();
-    if (j.ok) { pill.classList.add('ok'); pill.innerHTML = `<i></i><em>v${j.ytdlp}</em>`; }
-    else { pill.classList.add('bad'); pill.innerHTML = `<i></i><em>yt-dlp missing</em>`; }
-  } catch { pill.classList.add('bad'); pill.innerHTML = `<i></i><em>offline</em>`; }
-}
-
 form.addEventListener('submit', async (e) => {
   e.preventDefault();
   const url = urlInput.value.trim();
@@ -211,5 +201,4 @@ function renderHist() {
 }
 $('#clearHist').onclick = () => { localStorage.removeItem('pt_hist'); localStorage.removeItem('tf_hist'); renderHist(); };
 
-checkHealth();
 renderHist();

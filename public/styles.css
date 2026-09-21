@@ -34,20 +34,12 @@ a { color: inherit; }
 /* ————— header ————— */
 .top { border-bottom: 1px solid var(--ink); }
 .top-in {
-  display: flex; justify-content: space-between; align-items: center;
+  display: flex; align-items: center;
   padding: 14px 24px;
 }
 .wordmark { font-weight: 700; letter-spacing: -0.02em; text-decoration: none; font-size: 17px; display: inline-flex; align-items: center; gap: 9px; }
 .wordmark img { width: 26px; height: 26px; display: block; }
 .wordmark sup { font-size: 9px; font-weight: 400; }
-.top-right { display: flex; align-items: center; gap: 16px; }
-.sys { font-family: var(--mono); font-size: 11px; color: var(--mut); }
-.status { font-family: var(--mono); font-size: 11px; display: flex; align-items: center; gap: 7px; }
-.status i { width: 7px; height: 7px; border-radius: 50%; background: var(--mut); }
-.status em { font-style: normal; color: var(--mut); }
-.status.ok i { background: var(--good); }
-.status.ok em { color: var(--ink); }
-.status.bad i { background: var(--bad); }
 
 /* ————— hero ————— */
 .hero { padding: 72px 0 40px; }
@@ -204,9 +196,9 @@ tbody tr:hover .tag.loud { border-color: var(--accent); color: #ff8a5c; }
 .get { font-weight: 600; font-size: 14px; text-decoration: underline; text-decoration-color: var(--accent); text-underline-offset: 3px; white-space: nowrap; }
 .get:hover { color: var(--accent); }
 .fine { font-size: 13px; color: var(--mut); line-height: 1.6; }
-.fine code, .how code { font-family: var(--mono); font-size: 12px; background: var(--ink); color: var(--paper); padding: 2px 7px; }
+.fine code { font-family: var(--mono); font-size: 12px; background: var(--ink); color: var(--paper); padding: 2px 7px; }
 
-/* ————— features / history / how ————— */
+/* ————— features / history ————— */
 .grid4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
 .grid4 .full { grid-column: 1 / -1; margin-bottom: 4px; }
 .grid4 b { font-family: var(--mono); font-size: 11px; font-weight: 400; color: var(--accent); }
@@ -226,9 +218,6 @@ tbody tr:hover .tag.loud { border-color: var(--accent); color: #ff8a5c; }
 .hist-item:hover .go { color: var(--accent); }
 .empty { font-family: var(--mono); font-size: 12px; color: var(--mut); display: block; padding: 14px 0; }
 
-.how ol { margin: 0 0 14px; padding-left: 20px; color: var(--mut); font-size: 15px; line-height: 2; }
-.how ol::marker, .how li::marker { color: var(--accent); }
-
 footer { border-top: 1px solid var(--ink); margin-top: 64px; padding: 18px 0 42px; font-family: var(--mono); font-size: 11px; color: var(--mut); display: flex; justify-content: space-between; }
 
 /* ————— responsive ————— */
@@ -240,7 +229,6 @@ footer { border-top: 1px solid var(--ink); margin-top: 64px; padding: 18px 0 42p
   .bar input { flex-basis: 100%; border-bottom: 1px solid var(--line); }
   .bar .tbtn { padding: 12px 14px; }
   .fetch { flex: 1; justify-content: center; padding: 14px; }
-  .sys { display: none; }
   .dl-row { grid-template-columns: 1fr; gap: 8px; }
   .dl-k { padding-top: 0; }
 }
