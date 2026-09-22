@@ -62,8 +62,12 @@ form.addEventListener('submit', async (e) => {
     current = { url, info: j };
     render(j, url);
     saveHistory(j, url);
-    showAlert('Video loaded — pick a quality below.', true);
-    setTimeout(hideAlert, 2500);
+    if (j.engine === 'compat') {
+      showAlert('Compatibility mode: 360p MP4 only on this host. Deploy the full backend for 4K + MP3 (see README).');
+    } else {
+      showAlert('Video loaded — pick a quality below.', true);
+      setTimeout(hideAlert, 2500);
+    }
   } catch (err) {
     result.hidden = true;
     showAlert(err.message);
